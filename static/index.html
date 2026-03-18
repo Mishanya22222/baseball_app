@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseball Stats</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>⚾ Baseball Stats</h1>
+            <p class="subtitle">Explore historical baseball data</p>
+        </header>
+
+        <main class="main-content">
+            <section class="filters-section">
+                <h2>Select Season</h2>
+                <div class="year-selector">
+                    <select id="yearSelect" class="year-dropdown">
+                        <option value="">Loading years...</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="data-section">
+                <div id="loadingSpinner" class="spinner"></div>
+                <div id="dataContainer" class="data-container"></div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 Baseball Stats App. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
