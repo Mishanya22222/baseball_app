@@ -1,49 +1,37 @@
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI
 from sqlmodel import Session, select
-from models import engine, Batting, People, Teams, create_db_and_tables
-import sqlite3
+from models import Batting, Teams, People, engine, create_db_and_tables
+
+# Initialize database
+create_db_and_tables()
 
 app = FastAPI()
 
-# Initialize database tables on startup
-@app.on_event("startup")
-def on_startup():
-    try:
-        # Create tables using SQLModel
-        create_db_and_tables()
-        print("✓ Database tables initialized")
-    except Exception as e:
-        print(f"✗ Error initializing database: {e}")
 
 @app.get("/years")
-async def get_years():
-    try:
-        with Session(engine) as session:
-            # Query using raw SQL to ensure compatibility with existing database
-            years = session.exec(select(Teams.yearID).distinct().order_by(Teams.yearID)).all()
-            
-            # If empty, try raw SQL query
-            if not years:
-                conn = sqlite3.connect("baseball.db")
-                cursor = conn.cursor()
-                cursor.execute("SELECT DISTINCT yearID FROM teams ORDER BY yearID")
-                years = [row[0] for row in cursor.fetchall()]
-                conn.close()
-            
-            return sorted(set(years)) if years else []
-    except Exception as e:
-        print(f"Error fetching years: {e}")
-        # Fallback: try to get years from raw SQL
-        try:
-            conn = sqlite3.connect("baseball.db")
-            cursor = conn.cursor()
-            cursor.execute("SELECT DISTINCT yearID FROM teams ORDER BY yearID")
-            years = [row[0] for row in cursor.fetchall()]
-            conn.close()
-            return sorted(set(years)) if years else []
-        except Exception as e2:
-            print(f"Fallback error: {e2}")
-            return []
+def get_years():
+    with Session(engine) as session:
+        result = session.exec(select(Teams.yearID).distinct().order_by(Teams.yearID))
+        return result.all()
+
+@app.get("/teams")
+def get_teams(year: int):
+    with Session(engine) as session:
+        result = session.exec(select(Teams.teamID, Teams.name).where(Teams.yearID == year).order_by(Teams.name))
+        return [{'teamID': row[0], 'name': row[1]} for row in result.all()]
+
+
+@app.get("/players")
+def get_players(year: int, teamID: str):
+    with Session(engine) as session:
+        result = session.exec(
+            select(People.nameFirst, People.nameLast)
+            .join(Batting, Batting.playerID == People.playerID)
+            .where(Batting.yearID == year, Batting.teamID == teamID)
+            .distinct()
+            .order_by(People.nameLast, People.nameFirst)
+        )
+        return [{"first": row[0], "last": row[1]} for row in result.all()]
 
 app.mount("/", StaticFiles(directory="static", html=True), name="static")

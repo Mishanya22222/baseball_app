@@ -3,37 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baseball Stats</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Baseball Stats Tracker</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>⚾ Baseball Stats</h1>
-            <p class="subtitle">Explore historical baseball data</p>
-        </header>
+    <header>
+        <div class="header-accent"></div>
+        <div class="header-content">
+            <h1>⚾ Baseball Stats Tracker</h1>
+            <p class="tagline">Explore Historical Baseball Data</p>
+        </div>
+        <div class="header-accent"></div>
+    </header>
 
-        <main class="main-content">
-            <section class="filters-section">
-                <h2>Select Season</h2>
-                <div class="year-selector">
-                    <select id="yearSelect" class="year-dropdown">
+    <main class="container">
+        <section class="filters-section">
+            <h2>Select Year & Team</h2>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="year-select">📅 Year</label>
+                    <select id="year-select" disabled>
                         <option value="">Loading years...</option>
                     </select>
                 </div>
-            </section>
+                <div class="filter-group">
+                    <label for="team-select">🏟️ Team</label>
+                    <select id="team-select" disabled>
+                        <option value="">Select a year first</option>
+                    </select>
+                </div>
+            </div>
+        </section>
 
-            <section class="data-section">
-                <div id="loadingSpinner" class="spinner"></div>
-                <div id="dataContainer" class="data-container"></div>
-            </section>
-        </main>
+        <section id="players-section" class="players-section" hidden>
+            <div class="players-header">
+                <h2 id="team-title">Players</h2>
+                <p id="team-info" class="team-info"></p>
+            </div>
+            <div id="players-grid" class="players-grid"></div>
+        </section>
 
-        <footer class="footer">
-            <p>&copy; 2026 Baseball Stats App. All rights reserved.</p>
-        </footer>
-    </div>
+        <section id="empty-state" class="empty-state">
+            <div class="empty-message">
+                <p>👆 Select a year and team to view the roster</p>
+            </div>
+        </section>
+    </main>
 
-    <script src="script.js"></script>
+    <footer>
+        <p>&copy; 2026 Baseball Stats Tracker | Historical Data</p>
+    </footer>
+
+    <script src="/script.js"></script>
 </body>
 </html>

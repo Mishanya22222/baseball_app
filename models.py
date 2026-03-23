@@ -1,5 +1,6 @@
 from typing import Optional, List
 from sqlmodel import SQLModel, Field, Relationship, create_engine, Session
+from sqlalchemy import ForeignKeyConstraint
 import os
 
 # Database connection
@@ -105,10 +106,14 @@ class Teams(SQLModel, table=True):
 
 class Batting(SQLModel, table=True):
     """Player batting statistics"""
+    __table_args__ = (
+        ForeignKeyConstraint(['yearID', 'teamID'], ['teams.yearID', 'teams.teamID']),
+    )
+    
     playerID: str = Field(foreign_key="people.playerID", primary_key=True)
     yearID: int = Field(primary_key=True)
     stint: int = Field(primary_key=True)
-    teamID: str = Field(primary_key=False)  # Part of composite FK
+    teamID: str = Field(primary_key=False)
     lgID: Optional[str] = None
     G: Optional[int] = None
     AB: Optional[int] = None
