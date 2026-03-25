@@ -20,7 +20,6 @@ def get_session():
 class People(SQLModel, table=True):
     """Baseball player information"""
     playerID: str = Field(primary_key=True)
-    ID: Optional[int] = None
     birthYear: Optional[int] = None
     birthMonth: Optional[int] = None
     birthDay: Optional[int] = None

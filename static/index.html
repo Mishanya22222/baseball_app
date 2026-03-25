@@ -54,6 +54,55 @@
         <p>&copy; 2026 Baseball Stats Tracker | Historical Data</p>
     </footer>
 
+    <!-- Player Details Modal -->
+    <div id="player-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePlayerModal()">&times;</button>
+            <div id="player-details-loading" class="loading">Loading player details...</div>
+            <div id="player-details-content" style="display:none;">
+                <div class="player-details-header">
+                    <h2 id="player-details-name"></h2>
+                    <div class="player-bio">
+                        <p><strong>Birth Year:</strong> <span id="player-birth-year"></span></p>
+                        <p><strong>Birth City:</strong> <span id="player-birth-city"></span></p>
+                        <p><strong>Birth Country:</strong> <span id="player-birth-country"></span></p>
+                        <p><strong>Height:</strong> <span id="player-height"></span></p>
+                        <p><strong>Weight:</strong> <span id="player-weight"></span></p>
+                        <p><strong>Bats:</strong> <span id="player-bats"></span> | <strong>Throws:</strong> <span id="player-throws"></span></p>
+                        <p><strong>Debut:</strong> <span id="player-debut"></span></p>
+                    </div>
+                </div>
+
+                <div class="batting-stats">
+                    <h3>Career Batting Statistics</h3>
+                    <div class="stats-table-container">
+                        <table class="batting-table">
+                            <thead>
+                                <tr>
+                                    <th>Year</th>
+                                    <th>Team</th>
+                                    <th>G</th>
+                                    <th>AB</th>
+                                    <th>R</th>
+                                    <th>H</th>
+                                    <th>2B</th>
+                                    <th>3B</th>
+                                    <th>HR</th>
+                                    <th>RBI</th>
+                                    <th>BB</th>
+                                    <th>SO</th>
+                                    <th>SB</th>
+                                </tr>
+                            </thead>
+                            <tbody id="batting-records">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="/script.js"></script>
 </body>
 </html>

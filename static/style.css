@@ -246,6 +246,17 @@ select:disabled {
     margin: 0;
 }
 
+/* Modal */
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 1000; }
+.modal .modal-content { background: #fff; max-width: 900px; width: 94%; max-height: 90vh; overflow-y: auto; border-radius: 10px; padding: 22px; box-shadow: var(--shadow-lg); }
+.modal-close { position: absolute; right: 18px; top: 12px; font-size: 26px; background: none; border: none; cursor: pointer; }
+.player-details-header { border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 14px; }
+.player-bio { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.stats-table-container { overflow-x: auto; margin-top: 12px; }
+.batting-table { width: 100%; border-collapse: collapse; }
+.batting-table th, .batting-table td { border: 1px solid var(--border); padding: 8px; text-align: center; font-size: 0.9rem; }
+.batting-table thead { background: var(--primary); color: #fff; }
+
 /* Footer */
 footer {
     background: var(--primary);
